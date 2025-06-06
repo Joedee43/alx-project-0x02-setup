@@ -1,4 +1,5 @@
 import Header from "@/components/layout/Header";
+
 // import Image from "next/image";
 // // import { Geist, Geist_Mono } from "next/font/google";
 
@@ -19,6 +20,7 @@ export default function Home() {
     >
       <Header/>
       <h1>hello world</h1>
+      
     </div>
   );
 }
