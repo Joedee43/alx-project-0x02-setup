@@ -1,14 +1,39 @@
+import { useState } from "react";
+import { type CardProps } from "@/interfaces/index"
 import Card from "@/components/common/Card";
-export default function home() {
+import PostModal from "@/components/common/PostModal";
+
+
+
+export default function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [posts, setPosts] = useState<CardProps[]>([]);
+
+  const handleAddPost = (title: string, content: string) => {
+    setPosts((prev) => [...prev, { title, content }]);
+  };
+
   return (
-    <div>
-      <h1>The home page</h1>
-      <Card title="title 1" content="content 1"/>
-      <Card title="title 2" content="content 2"/>
-      <Card title="title 3" content="content 3"/>
-      <Card title="title 4" content="content 4"/>
-      <Card title="title 5" content="content 5"/>
-      <Card title="title 6" content="content 6"/>
+    <div className="p-4">
+      <h1 className="text-2xl font-bold mb-4">Home Page</h1>
+      <button
+        className="bg-blue-500 text-white px-4 py-2 rounded mb-4"
+        onClick={() => setIsModalOpen(true)}
+      >
+        Add Post
+      </button>
+
+      <PostModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onSubmit={handleAddPost}
+      />
+
+      <div className="grid gap-4">
+        {posts.map((post, index) => (
+          <Card key={index} title={post.title} content={post.content} />
+        ))}
+      </div>
     </div>
-  )
+  );
 }
